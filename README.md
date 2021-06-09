@@ -10,6 +10,12 @@ pip install torch==1.7.1+cu101 torchvision==0.8.2+cu101 torchaudio==0.7.2 -f htt
 https://drive.google.com/file/d/1AtyvY0qFM5FWPoZnml4jyNnVprb9PVjE/view?usp=sharing
 위 링크에서 파일 다운로드해서 3DDFA폴더에 압축풀기
 
+```bash
+cd 3DDFA
+bash build.sh
+cd ../
+```
+
 ## Demo
 ```bash
 python demo.py --config configs/demo_mpiigaze_lenet_land.yaml
