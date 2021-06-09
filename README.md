@@ -1,4 +1,4 @@
-# machin-learning-project
+# Machine Learning Project
 
 ## Requirements
 python >= 3.7 or 3.8 my version is 3.8.5 우분투 환경 20.04
