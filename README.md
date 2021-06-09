@@ -1,7 +1,7 @@
 # machin-learning-project
 
 ## Requirements
-python >= 3.7 or 3.8 my version is 3.8
+python >= 3.7 or 3.8 my version is 3.8.5
 
 ```bash
 pip install -r requirement.txt
