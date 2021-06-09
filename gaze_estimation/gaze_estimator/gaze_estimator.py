@@ -1,5 +1,6 @@
 from typing import List
-
+import cv2
+from PIL import ImageGrab
 import logging
 
 import numpy as np
@@ -51,6 +52,11 @@ class GazeEstimator:
         if self._config.mode == GazeEstimationMethod.MPIIGaze.name:
             for key in self.EYE_KEYS:
                 eye = getattr(face, key.name.lower())
+                # print("eye.center   :   {}".format(eye.center)
+                # cv2.imshow("image",image)
+                # cv2.waitKey(0)
+                # print("eye.center : {}".format(eye.center))
+                # print("face.center : {}".format(face.center))
                 self._head_pose_normalizer.normalize(image, eye)
             self._run_mpiigaze_model(face)
         elif self._config.mode == GazeEstimationMethod.MPIIFaceGaze.name:
@@ -60,14 +66,28 @@ class GazeEstimator:
     def _run_mpiigaze_model(self, face: Face) -> None:
         images = []
         head_poses = []
+
         for key in self.EYE_KEYS:
             eye = getattr(face, key.name.lower())
+
             image = eye.normalized_image
+
+            # cv2.imshow('eye', image)
+            # cv2.waitKey(0)
+
             normalized_head_pose = eye.normalized_head_rot2d
+
             if key == FacePartsName.REYE:
                 image = image[:, ::-1]
                 normalized_head_pose *= np.array([1, -1])
+
+           
+
             image = self._transform(image)
+
+
+            
+
             images.append(image)
             head_poses.append(normalized_head_pose)
         images = torch.stack(images)

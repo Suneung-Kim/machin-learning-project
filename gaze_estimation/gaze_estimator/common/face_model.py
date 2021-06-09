@@ -123,9 +123,17 @@ class FaceModel:
                                      tvec,
                                      useExtrinsicGuess=True,
                                      flags=cv2.SOLVEPNP_ITERATIVE)
+
+        # print("rvec   :    {} type : {}".format(rvec, type(rvec)))
+        # print("tvec   :    {} type : {}".format(tvec, type(tvec)))
         rot = Rotation.from_rotvec(rvec)
+        # print("rot {}".format(rot))
         face.head_pose_rot = rot
         face.head_position = tvec
+        # print("face gead posintion : {}".format(face.head_position))
+        # print("head_pose_rot : {}".format(rot.as_rotvec()))
+        # for i in enumerate(face.head_pose_rot):
+        #     print("33333333".format(type(i)))
         face.reye.head_pose_rot = rot
         face.leye.head_pose_rot = rot
 
@@ -142,11 +150,20 @@ class FaceModel:
         The eye centers are defined as the average coordinates of the
         corners of each eye.
         """
+        
+        # print("REYE_INDICES : {}".format(self.REYE_INDICES))
+
         face.center = face.model3d[np.concatenate(
             [self.REYE_INDICES, self.LEYE_INDICES,
              self.MOUTH_INDICES])].mean(axis=0)
         face.reye.center = face.model3d[self.REYE_INDICES].mean(axis=0)
         face.leye.center = face.model3d[self.LEYE_INDICES].mean(axis=0)
+
+        # print("reye.center ::: {}".format(face.reye.center))
+        # print("leye.center ::: {}".format(face.leye.center))
+    # REYE_INDICES: np.ndarray = np.array([36, 39])
+    # LEYE_INDICES: np.ndarray = np.array([42, 45])
+    # MOUTH_INDICES: np.ndarray = np.array([48, 54])
 
 
 MODEL3D = FaceModel()

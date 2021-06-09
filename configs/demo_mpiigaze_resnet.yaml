@@ -1,9 +1,25 @@
 mode: MPIIGaze
-device: cpu
+device: cuda # cpu or cuda
+
+detector:
+  dconfig: 3DDFA/configs/mb1_120x120.yml
+  # gpu_mode: cpu
+  opt: 2d_sparse
+  n_pre: 1
+  n_next: 1
+  onnx: False
+# dconfig: 3DDFA/configs/mb1_120x120.yml
+# gpu_mode: cpu
+# opt: 2d_sparse
+# n_pre: 1
+# n_next: 1
+# onnx: False
+
 model:
   name: resnet_preact
 gaze_estimator:
-  checkpoint: data/models/mpiigaze/resnet_preact/model.pth
+  # checkpoint: data/models/mpiigaze/resnet_preact/model.pth
+  checkpoint: experiments/mpiigaze/resnet_preact/exp00/14/checkpoint_0040.pth
   camera_params: data/calib/sample_params.yaml
   normalized_camera_params: data/calib/normalized_camera_params_eye.yaml
   normalized_camera_distance: 0.6
@@ -21,3 +37,5 @@ demo:
   show_landmarks: True
   show_normalized_image: False
   show_template_model: False
+
+

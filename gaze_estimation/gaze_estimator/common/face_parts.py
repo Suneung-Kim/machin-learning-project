@@ -27,6 +27,10 @@ class FaceParts:
 
     @property
     def distance(self) -> float:
+
+        # print("@#@#@#@#@{}".format(self.center))
+        # print("@@@@",np.linalg.norm(self.center))
+
         return np.linalg.norm(self.center)
 
     def angle_to_vector(self) -> None:

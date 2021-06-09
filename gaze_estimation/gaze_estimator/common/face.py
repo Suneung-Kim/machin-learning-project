@@ -16,6 +16,7 @@ class Face(FaceParts):
 
         self.head_position: Optional[np.ndarray] = None
         self.model3d: Optional[np.ndarray] = None
+       
 
     @staticmethod
     def change_coordinate_system(euler_angles: np.ndarray) -> np.ndarray:

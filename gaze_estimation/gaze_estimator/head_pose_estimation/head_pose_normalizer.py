@@ -20,6 +20,8 @@ class HeadPoseNormalizer:
     def normalize(self, image: np.ndarray, eye_or_face: FaceParts) -> None:
         eye_or_face.normalizing_rot = self._compute_normalizing_rotation(
             eye_or_face.center, eye_or_face.head_pose_rot)
+
+
         self._normalize_image(image, eye_or_face)
         self._normalize_head_pose(eye_or_face)
 
@@ -28,20 +30,34 @@ class HeadPoseNormalizer:
         camera_matrix_inv = np.linalg.inv(self.camera.camera_matrix)
         normalized_camera_matrix = self.normalized_camera.camera_matrix
 
+        # cv2.imshow("image",image)
+        # cv2.waitKey(0)
+
+        print("eye_or_face.distance : {}".format(eye_or_face.distance))
         scale = self._get_scale_matrix(eye_or_face.distance)
         conversion_matrix = scale @ eye_or_face.normalizing_rot.as_matrix()
 
         projection_matrix = normalized_camera_matrix @ conversion_matrix @ camera_matrix_inv
 
+        # cv2.imshow("normalize_image",image)
+        # cv2.waitKey(0)
+
         normalized_image = cv2.warpPerspective(
             image, projection_matrix,
             (self.normalized_camera.width, self.normalized_camera.height))
+
+        # print("{}".format(self.normalized_camera.width))
+        # cv2.imshow("normalize_image",normalized_image)
+        # cv2.waitKey(0)
 
         if eye_or_face.name in {FacePartsName.REYE, FacePartsName.LEYE}:
             normalized_image = cv2.cvtColor(normalized_image,
                                             cv2.COLOR_BGR2GRAY)
             normalized_image = cv2.equalizeHist(normalized_image)
         eye_or_face.normalized_image = normalized_image
+
+        # cv2.imshow("normalize_image",normalized_image)
+        # cv2.waitKey(0)
 
     @staticmethod
     def _normalize_head_pose(eye_or_face: FaceParts) -> None:

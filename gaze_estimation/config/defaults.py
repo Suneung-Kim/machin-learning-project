@@ -5,6 +5,14 @@ config = ConfigNode()
 # option: MPIIGaze, MPIIFaceGaze
 config.mode = 'MPIIGaze'
 
+config.detector = ConfigNode()
+config.detector.dconfig = '3DDFA/configs/mb1_120x120.yml'
+config.detector.gpu_mode = 'cpu'
+config.detector.opt = '2d_sparse'
+config.detector.n_pre = 1
+config.detector.n_next = 1
+config.detector.onnx = False
+
 config.dataset = ConfigNode()
 config.dataset.dataset_dir = 'datasets/MPIIGaze.h5'
 
@@ -119,6 +127,7 @@ config.demo.show_template_model = False
 config.cudnn = ConfigNode()
 config.cudnn.benchmark = True
 config.cudnn.deterministic = False
+
 
 
 def get_default_config():

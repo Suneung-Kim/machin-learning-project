@@ -100,6 +100,7 @@ def save_one_person(person_id: str, data_dir: pathlib.Path,
         f_output.create_dataset(f'{person_id}/pose', data=poses)
         f_output.create_dataset(f'{person_id}/gaze', data=gazes)
 
+##python tools/preprocess_mpiigaze.py --dataset datasets/MPIIGaze -o datasets/
 
 def main():
     parser = argparse.ArgumentParser()
@@ -111,7 +112,7 @@ def main():
     output_dir.mkdir(exist_ok=True, parents=True)
     output_path = output_dir / 'MPIIGaze.h5'
     if output_path.exists():
-        raise ValueError(f'{output_path} already exists.')
+        raise ValueError(f'{output_path} already exists.')zzzz
 
     dataset_dir = pathlib.Path(args.dataset)
 

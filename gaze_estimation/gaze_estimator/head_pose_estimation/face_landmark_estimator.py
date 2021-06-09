@@ -3,6 +3,8 @@ from typing import List
 import dlib
 import numpy as np
 import yacs.config
+import sys 
+sys.path.append('/home/ghdwndgh/project/Workspace/face.evoLVe.PyTorch/3DDFA')
 
 from gaze_estimation.gaze_estimator.common import Face
 
@@ -30,8 +32,9 @@ class LandmarkEstimator:
             predictions = self.predictor(image[:, :, ::-1], bbox)
             landmarks = np.array([(pt.x, pt.y) for pt in predictions.parts()],
                                  dtype=np.float)
-            bbox = np.array([[bbox.left(), bbox.top()],
-                             [bbox.right(), bbox.bottom()]],
-                            dtype=np.float)
+            # bbox = np.array([[bbox.left(), bbox.top()],
+            #                  [bbox.right(), bbox.bottom()]],
+            #                 dtype=np.float)
+            bbox = np.array([[0, 0], [0, 0]], dtype=np.float)
             detected.append(Face(bbox, landmarks))
         return detected
