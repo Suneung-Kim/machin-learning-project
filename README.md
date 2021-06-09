@@ -18,7 +18,7 @@ cd ../
 ```
 https://drive.google.com/file/d/171V6_Hbdipu9K76cavytuGABBVP8R7br/view?usp=sharing
 
-위 링크에서 shape_predictor_68_face_landmarks.dat 다운로드함
+위 링크에서 shape_predictor_68_face_landmarks.dat 다운로드 하여 data/dlib 위치에 넣어줌
 
 ## Demo
 ```bash
